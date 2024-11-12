@@ -1,62 +1,31 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { siSvelte } from "simple-icons";
   import { SIIcon } from "$lib/index.js";
-  import * as icons from "simple-icons";
 
   let size = $state(64);
   let color = $state("#000000");
 
-  const allIcons = Object.values(icons).filter((icon) => "title" in icon);
-  let visibleIcons = $state<icons.SimpleIcon[]>([]);
-  let loadCount = 100; // Número de iconos a cargar por vez
-  let currentIndex = 0;
+  const code = $derived(
+    `<script lang="ts">
+  import { siSvelte } from "simple-icons";
+  import { SIIcon } from "$lib/index.js";
 
-  function loadMoreIcons() {
-    const nextIcons = allIcons.slice(currentIndex, currentIndex + loadCount);
-    visibleIcons = [...visibleIcons, ...nextIcons];
-    currentIndex += loadCount;
-  }
-
-  onMount(() => {
-    loadMoreIcons();
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  });
-
-  function handleScroll() {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-      loadMoreIcons();
-    }
-  }
-
-  async function copyToClipboard(icon: icons.SimpleIcon) {
-    await navigator.clipboard.writeText(`<SIIcon icon={si${icon.title}} />`);
-  }
+  <SIIcon icon={siSvelte} size={${size}} color={"${color}"} />
+</script` + ">",
+  );
 </script>
 
 <div class="container mx-auto px-4 py-8">
   <header class="mb-8 text-center">
-    <h1 class="text-3xl font-bold">Svelte Simple Icons</h1>
+    <h1 class="text-3xl font-bold">@willingtonortiz/svelte-simple-icons</h1>
   </header>
 
-  <section class="mb-8 rounded-lg bg-gray-100 p-4">
-    <h2 class="text-xl font-semibold">Instrucciones de Instalación</h2>
-    <p class="mt-2">Para instalar la biblioteca, ejecuta el siguiente comando:</p>
-    <pre class="mt-2 rounded bg-gray-200 p-2"><code>npm install simple-icons</code></pre>
+  <section class="mx-auto flex flex-col flex-nowrap items-center gap-4">
+    <SIIcon icon={siSvelte} {size} {color} />
 
-    <p class="mt-2">Luego, importa los iconos que necesites en tu proyecto:</p>
-    <pre class="mt-2 rounded bg-gray-200 p-2"><code
-        >import {"{"} siSvelte, siFacebook {"}"} from 'simple-icons';</code
-      ></pre>
-  </section>
-
-  <section class="flex flex-row flex-nowrap">
-    <form class="w-full max-w-[300px] space-y-4 rounded-lg bg-gray-100 p-4">
+    <div class="w-full max-w-[300px] space-y-4 rounded-lg bg-gray-100 p-4">
       <div class="space-y-2">
-        <label for="size" class="block text-sm font-medium text-gray-700">Icon size</label>
+        <label for="size" class="block text-sm font-medium text-gray-700">Size</label>
 
         <div class="flex items-center gap-4">
           <input
@@ -73,7 +42,7 @@
       </div>
 
       <div class="space-y-2">
-        <label for="color" class="block text-sm font-medium text-gray-700">Icon color</label>
+        <label for="color" class="block text-sm font-medium text-gray-700">Color</label>
         <input
           type="color"
           id="color"
@@ -81,36 +50,12 @@
           bind:value={color}
         />
       </div>
-    </form>
-
-    <div class="flex-1">
-      <SIIcon icon={icons.siSvelte} {size} {color} />
     </div>
   </section>
 
-  <!-- <section class="mb-8">
-    <h2 class="mb-4 text-xl font-semibold">Galería de Iconos</h2>
-    <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
-      {#each visibleIcons as icon}
-        <div
-          class="rounded-lg border border-gray-200 bg-gray-50 p-2 text-center flex flex-col flex-nowrap items-center"
-        >
-          <SIIcon {icon} {size} />
+  <section class="mt-8">
+    <p class="mb-2 text-left text-gray-500">As simple as this:</p>
 
-          <div class="mt-2 text-sm text-gray-700">
-            <span class="block">{icon.title}</span>
-
-            <span class="block">#{icon.hex}</span>
-
-            <button
-              onclick={() => copyToClipboard(icon)}
-              class="mt-2 rounded bg-blue-600 px-2 py-1 text-xs text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Copiar
-            </button>
-          </div>
-        </div>
-      {/each}
-    </div>
-  </section> -->
+    <pre class="mx-auto w-full rounded-lg bg-gray-100 p-4"><code>{code}</code></pre>
+  </section>
 </div>

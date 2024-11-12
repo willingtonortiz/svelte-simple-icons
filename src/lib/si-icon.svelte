@@ -1,22 +1,24 @@
-<script lang="ts">
-  import type { SimpleIcon } from "simple-icons";
-  import type { SVGAttributes } from "svelte/elements";
-
-  type Props = SVGAttributes<SVGElement> & {
+<script module lang="ts">
+  export type SIIconProps = SVGAttributes<SVGElement> & {
     icon: SimpleIcon;
     element?: SVGElement;
     title?: string;
     size?: number;
   };
+</script>
+
+<script lang="ts">
+  import type { SimpleIcon } from "simple-icons";
+  import type { SVGAttributes } from "svelte/elements";
 
   let {
     icon,
     element = $bindable(),
-    title,
+    title = icon.title,
     color = `#${icon.hex}`,
     size = 24,
     ...rest
-  }: Props = $props();
+  }: SIIconProps = $props();
 </script>
 
 <svg
@@ -31,7 +33,7 @@
   {...rest}
 >
   {#if title}
-    <title>{icon.title}</title>
+    <title>{title}</title>
   {/if}
 
   <path d={icon.path} />
