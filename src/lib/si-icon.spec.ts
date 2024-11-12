@@ -47,6 +47,6 @@ describe("SIIcon Component", () => {
     expect(svg?.getAttribute("width")).toBe("48");
     expect(svg?.getAttribute("height")).toBe("48");
     expect(svg?.querySelector("title")?.textContent).toBe("Custom Title");
-    expect(svg?.getAttribute("color")).toBe("#65");
+    expect(svg?.getAttribute("color")).toBe("#445566");
   });
 });
