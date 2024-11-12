@@ -69,7 +69,7 @@ The only required prop is `icon`, which is the Simple Icon to use.
 
 ## API
 
-Customization is as easy as passing props to the component. SIIcon supports all the props that a normal SVG element supports, plus a few extras:
+Customization is as easy as passing props to the component. `<SIIcon/>` supports all the props that a normal SVG element supports, plus a few extras:
 
 - `icon`: The Simple Icon to use (required).
 - `element`: A bindable Svelte reference to the SVG element.
@@ -80,10 +80,10 @@ Customization is as easy as passing props to the component. SIIcon supports all 
   import { SIIcon } from "@willingtonortiz/svelte-simple-icons";
   import { siSvelte } from "simple-icons";
 
-  let element = $state<>();
+  let element = $state<SVGElement>();
 </script>
 
-<SIIcon icon={siSvelte} color="#000000" size={64} />
+<SIIcon bind:element icon={siSvelte} color="#000000" size={64} />
 ```
 
 ## License
@@ -95,5 +95,3 @@ This package is completely free and licensed under the [MIT license](https://cho
 Contributions are welcome. If you wish to make major changes, please open an issue first to discuss what you would like to change.
 
 Make sure to update tests as appropriate.
-
-Thank you for using @willingtonortiz/svelte-simple-icons! If you have any questions or suggestions, feel free to open an issue or submit a pull request.
