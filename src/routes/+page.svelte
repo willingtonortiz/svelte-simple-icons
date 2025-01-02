@@ -3,7 +3,7 @@
   import { SIIcon } from "$lib/index.js";
 
   let size = $state(64);
-  let color = $state("#000000");
+  let color = $state("#FF3E00");
 
   const code = $derived(
     `<script lang="ts">
